@@ -11,7 +11,7 @@
          '[clojure.java.io :as io]
          '[boot.util :refer [sh]])
 
-(def +lib-version+ "4.0.1")
+(def +lib-version+ "5.2.1")
 (def +version+ (str +lib-version+ "-0"))
 
 (task-options!
@@ -45,13 +45,13 @@
         ((sh (cmd "npm") "install" "--production"))
         ((sh (cmd "npm") "install" "react" "react-dom" "webpack" "babel-loader" "babel-core" "babel-preset-react" "babel-preset-es2015" "babel-preset-stage-0" "babel-plugin-add-module-exports" "less"))
         ((sh (cmd (path (str (io/file tmp +lib-folder+) "/node_modules/.bin/webpack"))) "--config" "webpack-cljsjs.config.js"))
-        ((sh (cmd (path (str (io/file tmp +lib-folder+) "/node_modules/.bin/lessc"))) "assets/index.less" ">" "rc-slider.css")))
+        ((sh (cmd (path (str (io/file tmp +lib-folder+) "/node_modules/.bin/lessc"))) "assets/index.less" "rc-slider.css")))
       (-> fileset (boot/add-resource tmp) boot/commit!))))
 
 (deftask package []
   (comp
     (download :url (str "https://github.com/react-component/slider/archive/" +lib-version+ ".zip")
-              :checksum "a1da3d2fbe0509beb4915cd092ceeebb"
+              :checksum "0662A810C7CB86BA670FEAEC872B9123"
               :unzip true)
     (build)
     (sift :move {#".*rc-slider.js" "cljsjs/rc-slider/development/rc-slider.inc.js"
